@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} List of quiz {% endblock %}
+{% block title %} List of quizs {% endblock %}
 
 {% block body%}
 
@@ -12,31 +12,48 @@
 <a href="/"> </a> 
 <a href="/"> </a> 
 </div>
-<div class="container">
-    <h1>List of quizs </h1>
-    <p calss="new"><a href="/createQuiz"> Nouveau </a></p>
-    <table>
-    <thead>
+{# read and display several types of flash messages (" Message aprés validation") #}
+  {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+        <div class="alert-success mt-4">
+            {{ message }}
+        </div>
+       {% endfor %}
+  {% endfor %}
+<div class="container mt-4">
+    <h1>List Of Quizs </h1>
+    <p calss="new"><a href="/createQuiz"> New </a></p>
+    <table class="table table-hover">
+  <thead>
     <tr>
-    <th>Level</th>
-    <th>Title</th>
-
-    <th>Modifier</th>
-    <th>Supprimer</th>
+      <th scope="col">Level Quiz</th>
+      <th scope="col">Title</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
+    {# Afficher le nombre de questios  #}
+    <div class="count mt-4">
+        <h4> There Are {{ quizs.getTotalItemCount  }} Level In Total </h4>
+    </div>
     {% for quiz in quizs %}
-    <tr>
-    <td><a href="/testQuiz/{{quiz.id}}">{{quiz.level}}</a></td> 
-    <td> {{quiz.title}} </td>
-    
-    <td><a href="/updateQuiz/{{quiz.id}}">Modifier</a></td>
-    <td><a href="/deleteQuiz/{{quiz.id}}">Supprimer</a></td>
+    <tr class="table-primary">
+     
+      <td><a href="/testQuiz/{{quiz.id}}">{{quiz.level}}</a></td>
+      <td>{{quiz.title}}</td>
+      <td><a href="/updateQuiz/{{quiz.id}}">Update</a></td>
+      <td><a href="/deleteQuiz/{{quiz.id}}">Delete</a></td>
     </tr>
-    {% endfor %}
-    <t/body>
-    </table>  
+ {% endfor %}
+  </tbody>
+</table>
+{# code pour afficher la bare des tableau #}
+    <div class="navigation d-flex justify-content-center mt-4">
+           {{ knp_pagination_render(quizs) }}
+    </div>
 </div>
 </body>
 {% endblock %}
+
+

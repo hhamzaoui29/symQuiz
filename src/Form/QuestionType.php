@@ -14,7 +14,15 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('question')
+            ->add('question', TextType::class,[
+                   'attr' => [
+                    'class'=> 'form-control'
+                   ],
+                   'label' => 'Level',
+                   'label_attr' => [
+                    'class' => 'form-label mt-4'
+                   ]
+            ])
             ->add('quiz', EntityType::class,[
                 'class'        => Quiz::class,
                 'choice_label' => 'level',

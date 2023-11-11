@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+ <div class="container">
+    <h1 class="mt-4">Créate A New Quiz</h1>
+    {{ form_start(form) }}
+
+     <div class="form-group">
+      {{ form_label (form.level) }}
+      {{ form_widget(form.level) }}
+       <div class="form-error">
+        {{ form_errors(form.level) }}
+      </div>
+
+     <div class="form-group">
+      {{ form_label (form.title) }}
+      {{ form_widget(form.title) }}
+       <div class="form-error">
+        {{ form_errors(form.title) }}
+      </div>
+
+      <div class="form-group">
+         <div class="form-error">
+           {{ form_row (form.submit) }}
+         </div>
+    </div>
+
+      
+    {{ form_end(form) }}
+ </div>
+
+
+{% endblock body %}

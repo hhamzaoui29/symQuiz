@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} List of question {% endblock %}
+{% block title %} List Of Question {% endblock %}
 
 {% block body%}
 
@@ -12,32 +12,40 @@
 <a href="/"> </a> 
 <a href="/"> </a> 
 </div>
-<div class="container">
-    <h1>List of questions </h1>
-    <p calss="new"><a href="/createQuestion"> Nouveau </a></p>
-    <table>
-    <thead>
+<div class="container mt-4">
+    <h1>List Of Questions </h1>
+    <p calss="new"><a href="/createQuestion"> New </a></p>
+    <table class="table table-hover">
+  <thead>
     <tr>
-
-    <th>Level Quiz</th>
-    <th>question</th>
-
-    <th>Modifier</th>
-    <th>Supprimer</th>
+      <th scope="col">Level Quiz</th>
+      <th scope="col">Question</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
-    </thead>
-    <tbody>
-    {% for question in questions %}
-    <tr>
-    <td> {{question.quiz.level}} </td>
-    <td> {{question.question}} </td>
-    
-    <td><a href="/updateQuestion/{{question.id}}">Modifier</a></td>
-    <td><a href="/deleteQuestion/{{question.id}}">Supprimer</a></td>
+  </thead>
+  <tbody>
+    {# Afficher le nombre de questios  #}
+    <div class="count mt-4">
+        <h4> There Are {{ questions.getTotalItemCount  }} Questions In Total </h4>
+    </div>
+  {% for question in questions %}
+    <tr class="table-primary">
+     
+      <td>{{question.quiz.level}}</td>
+      <td>{{question.question}}</td>
+      <td><a href="/updateQuestion/{{question.id}}">Update</a></td>
+      <td><a href="/deleteQuestion/{{question.id}}">Delete</a></td>
     </tr>
-    {% endfor %}
-    <t/body>
-    </table>  
+ {% endfor %}
+  </tbody>
+</table>
+{# code pour afficher la bare des tableau #}
+    <div class="navigation d-flex justify-content-center mt-4">
+           {{ knp_pagination_render(questions) }}
+    </div>
 </div>
 </body>
 {% endblock %}
+
+

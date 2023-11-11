@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class QuizController extends AbstractController
@@ -23,10 +24,17 @@ class QuizController extends AbstractController
 //===============================//
 //Création de la route
     #[Route('/quizs', name: 'app.quizs')]
-    public function List(QuizRepository $qr): Response
+    public function List(QuizRepository $qr,
+                          Request $req,
+                          PaginatorInterface $paginator): Response
     {
+        $quizs = $paginator->paginate(
+            $qr->findAll(),
+            $req->query->getInt('page', 1),
+            5
+        );   
         return $this->render('quiz/listQuiz.html.twig', [
-            'quizs' => $qr->findAll(),
+            'quizs' => $quizs,
         ]);
     }
 
@@ -88,7 +96,7 @@ class QuizController extends AbstractController
             $this->addFlash('success', 'Action taken into account');
             return $this->redirectToRoute('app.quizs');
         }
-        return $this->render('quiz/formQuiz.twig.html', [
+        return $this->render('quiz/formCreateQuiz.html.twig', [
             'quiz' => $quiz,
             'form' => $form->createView()
         ]);

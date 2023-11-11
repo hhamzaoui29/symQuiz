@@ -6,6 +6,7 @@ use App\Entity\Question;
 use App\Form\QuestionType;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +18,17 @@ class QuestionController extends AbstractController
     //======== Afficher Tous  =======//
     //===============================//
     //Création de la route
-    #[Route('/questions', name: 'app_questions')]
-    public function ListQuestion(QuestionRepository $ar): Response
+    #[Route('/questions', name: 'app.questions')]
+    public function ListQuestion(QuestionRepository $qr, 
+     Request $req, 
+     PaginatorInterface $paginator): Response
     {
+        $questions = $paginator->paginate(
+            $qr->findAll(), 
+            $req->query->getInt('page', 1),
+            5);    
         return $this->render('question/listQuestion.html.twig', [
-            'questions' => $ar->findAll(),
+            'questions' => $questions
         ]);
     }
     //===============================//
@@ -46,7 +53,7 @@ class QuestionController extends AbstractController
         $emi->remove($question);
         $emi->flush();
         $this->addFlash('success', 'Question is deleted');
-        return $this->redirectToRoute('app_questions');
+        return $this->redirectToRoute('app.questions');
     }
     //===============================//
     //======== Create&Update  =======//
@@ -78,7 +85,7 @@ class QuestionController extends AbstractController
 
             //Message
             $this->addFlash('success', 'Action taken into account');
-            return $this->redirectToRoute('app_questions');
+            return $this->redirectToRoute('app.questions');
         }
         return $this->render('question/formQuestion.html.twig', [
             'question' => $question,

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} List of Answer {% endblock %}
+{% block title %} List of Answers {% endblock %}
 
 {% block body%}
 
@@ -12,32 +12,40 @@
 <a href="/"> </a> 
 <a href="/"> </a> 
 </div>
-<div class="container">
-    <h1>List of Answer</h1>
-    <p calss="new"><a href="/createAnswer"> Nouveau </a></p>
-    <table>
-    <thead>
+<div class="container mt-4">
+    <h1>List Of Answers </h1>
+    <p calss="new"><a href="/createAnswer"> New </a></p>
+    <table class="table table-hover">
+  <thead>
     <tr>
-
-    <th>Question</th>
-    <th>Answer</th>
-    <th>Correct?</th>
-    <th>Modifier</th>
-    <th>Supprimer</th>
+      <th scope="col">Question</th>
+      <th scope="col">Answer</th>
+      <th scope="col">Is Correct?</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
+    {# Afficher le nombre de questios  #}
+    <div class="count mt-4">
+        <h4> There Are {{ answers.getTotalItemCount  }} Answers In Total </h4>
+    </div>
     {% for answer in answers %}
-    <tr>
-    <td> {{answer.question.question}}  </td>
-    <td> {{answer.answer}}  </td>
-    <td> {{answer.correct}} </td>
-    <td><a href="/updateAnswer/{{answer.id}}">Modifier</a></td>
-    <td><a href="/deleteAnswer/{{answer.id}}">Supprimer</a></td>
+    <tr class="table-primary">
+     
+      <td>{{answer.question.question}}</td>
+      <td> {{answer.answer}}  </td>
+      <td> {{answer.correct}} </td>
+      <td><a href="/updateAnswer/{{answer.id}}">Update</a></td>
+      <td><a href="/deleteAnswer/{{answer.id}}">Delete</a></td>
     </tr>
-    {% endfor %}
-    <t/body>
-    </table>  
+ {% endfor %}
+  </tbody>
+</table>
+{# code pour afficher la bare des tableau #}
+    <div class="navigation d-flex justify-content-center mt-4">
+           {{ knp_pagination_render(answers) }}
+    </div>
 </div>
 </body>
 {% endblock %}
