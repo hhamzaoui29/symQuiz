@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<form class = "form-container" method="POST">
+    <h1> form </h1>
+    <hr>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.question, 'Question') }}
+        {{ form_widget(form.question, {'attr': {'class': 'form-input'}}) }}
+    </div>
+<br><br>
+    <divc lass="form-group">
+        {{ form_label(form.quiz, 'Choice Level') }}
+        {{ form_widget(form.quiz, {'attr': {'class': 'form-input'}}) }} 
+    </div>
+<br><br>
+    <div class="links">
+    <button type="submit" class="form-submit">Save</button>
+    <a href="/questions">List Questions</a>
+    </di>
+
+    {{ form_end(form) }}
+
+</form>
+
+{% endblock body %}

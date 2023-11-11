@@ -1,0 +1,32 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %} List of quiz {% endblock %}
+  
+{% block body%}
+<body class="body">
+    {%  block form %}
+    <form class="form" > 
+    {% for result  in results %}
+    <h1 id="level">  {{result.level}}  </h1>
+        <ul>
+        {% for question in result.questions %}
+        <h2 id="question"> {{question.question}} </h2> 
+            <ul>
+             {% for answer in question.answers %}
+            <h4 id="answer"> {{answer.answer}} </h4> 
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+        <button id="next-btn">Next</button>
+    </form>
+   {% endblock form  %} 
+   {% block javascripts %}
+     <script src="{{ asset('assets/js/script.js')}}"></script>
+   {% endblock javascripts %}
+</body>
+{% endblock %}
+

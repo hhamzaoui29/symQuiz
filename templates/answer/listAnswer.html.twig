@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} List of Answer {% endblock %}
+
+{% block body%}
+
+<body>
+<div class = "links">
+<a href="/addresses">  List Addresss </a>
+<a href="/questions">    List Questions</a>
+<a href="/quizs"> List Quiz</a>
+<a href="/"> </a> 
+<a href="/"> </a> 
+</div>
+<div class="container">
+    <h1>List of Answer</h1>
+    <p calss="new"><a href="/createAnswer"> Nouveau </a></p>
+    <table>
+    <thead>
+    <tr>
+
+    <th>Question</th>
+    <th>Answer</th>
+    <th>Correct?</th>
+    <th>Modifier</th>
+    <th>Supprimer</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for answer in answers %}
+    <tr>
+    <td> {{answer.question.question}}  </td>
+    <td> {{answer.answer}}  </td>
+    <td> {{answer.correct}} </td>
+    <td><a href="/updateAnswer/{{answer.id}}">Modifier</a></td>
+    <td><a href="/deleteAnswer/{{answer.id}}">Supprimer</a></td>
+    </tr>
+    {% endfor %}
+    <t/body>
+    </table>  
+</div>
+</body>
+{% endblock %}
