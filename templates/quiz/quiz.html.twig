@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
+
 {% block title %} QuestionUIZ {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
+{% endblock stylesheets %}
+
 {% block body %}
+
 <div class="app">
-   
-    
         <h1> {{level.title}} </h1>
-         
         <div class="quiz">
             <h2 id="question"> question goes here</h2>
             <div id="answer-buttons">

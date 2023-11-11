@@ -5,13 +5,14 @@
 {% block body%}
 
 <body>
-<div class = "links">
-<a href="/addresses">  List Addresss </a>
-<a href="/answers">  List Answers</a>
-<a href="/quizs">       List Quiz</a>
-<a href="/"> </a> 
-<a href="/"> </a> 
-</div>
+{# read and display several types of flash messages (" Message aprés validation") #}
+  {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+        <div class=" alert alert-success mt-4">
+            {{ message }}
+        </div>
+       {% endfor %}
+  {% endfor %}
 <div class="container mt-4">
     <h1>List Of Questions </h1>
     <p calss="new"><a href="/createQuestion"> New </a></p>

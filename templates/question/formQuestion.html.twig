@@ -2,27 +2,31 @@
 
 {% block body %}
 
-<form class = "form-container" method="POST">
-    <h1> form </h1>
-    <hr>
-    {{ form_start(form) }}
-    <div class="form-group">
-        {{ form_label(form.question, 'Question') }}
-        {{ form_widget(form.question, {'attr': {'class': 'form-input'}}) }}
-    </div>
-<br><br>
-    <divc lass="form-group">
-        {{ form_label(form.quiz, 'Choice Level') }}
-        {{ form_widget(form.quiz, {'attr': {'class': 'form-input'}}) }} 
-    </div>
-<br><br>
-    <div class="links">
-    <button type="submit" class="form-submit">Save</button>
-    <a href="/questions">List Questions</a>
-    </di>
+<div class="container">
+    <h1 class="mt-4">Create A New Question</h1>
+    {{ form_start(form)}}
 
+        <div class="form-group">
+            {{ form_label (form.question) }}
+            {{ form_widget(form.question) }}
+        </div>
+        <div class="form-error">
+             {{ form_errors(form.question) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label (form.quiz) }}
+            {{ form_widget(form.quiz) }}
+        <div class="form-error">
+            {{ form_errors(form.quiz) }}
+        </div>
+
+         <div class="form-group">
+         <div class="form-error">
+           {{ form_row (form.submit) }}
+         </div>
+    </div>
     {{ form_end(form) }}
-
-</form>
+</div>
 
 {% endblock body %}

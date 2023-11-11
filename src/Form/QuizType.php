@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class QuizType extends AbstractType
 {
@@ -26,7 +27,10 @@ class QuizType extends AbstractType
                    'label' => 'Level',
                    'label_attr' => [
                     'class' => 'form-label mt-4'
-                   ]
+                   ],
+                   'constraints' => [
+                        new Assert\NotBlank()
+                    ]
 
             ])
 
@@ -38,16 +42,16 @@ class QuizType extends AbstractType
             'label_attr' => [
                 'class' => 'form-label mt-4'
             ],
+            'constraints' => [
+                new Assert\NotBlank()
+            ]
             ])
             ->add('submit', SubmitType::class,[
                 'attr' => [
                     'class' => 'btn btn-primary mt-4' 
                 ],
-                'label' => 'Create'
-            ])
-            
-           
-        ;
+                'label' => 'Validate'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
